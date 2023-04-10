@@ -1,0 +1,32 @@
+<hr>
+<h2>Enter task to add</h2>
+<%= form_for @task do |f| -%>
+    Task details: <%= f.text_field :taskDetail %> <br />
+    <%= f.submit%>
+<% end -%>
+<br />
+<br />
+<br />
+<hr>
+<h2>Current Tasks</h2>
+<% if !@unfinished_tasks.blank? %>
+    <% for item in @unfinished_tasks %>
+        <%= item.taskDetail %>
+        <form class="button_to" method="post" action="/tasks/updateTask?value=<%= item._id %>"><button type="submit">Mark as completed</button></form>
+        </br>
+        </br>
+    <% end %>
+<% else %>
+<h4>No unfinished tasks available for now</h4>
+<%end%>
+<h2>Unfinished Tasks</h2>
+<% if !@finished_tasks.blank? %>
+    <% for item in @finished_tasks %>
+        <%= item.taskDetail %></br>
+                <form class="button_to" method="post" action="/tasks/deleteTask?value=<%= item._id %>"><button type="submit">Delete</button></form>
+        </br>
+        </br>
+    <% end %>
+<% else %>
+<h4>No finished tasks available for now</h4>
+<%end%>
